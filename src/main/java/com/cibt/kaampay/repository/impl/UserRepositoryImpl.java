@@ -5,6 +5,7 @@
  */
 package com.cibt.kaampay.repository.impl;
 
+import com.cibt.kaampay.core.JDBCTemplate;
 import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.repository.UserRepositoy;
 import java.sql.Connection;
@@ -21,35 +22,24 @@ import java.util.List;
  */
 public class UserRepositoryImpl implements UserRepositoy {
 
+    private JDBCTemplate<User> template = new JDBCTemplate<>();
+
     @Override
     public void insert(User user) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost/kaamPay";
-        String username = "root";
-        String password = "";
-        Connection conn = DriverManager.getConnection(url, username, password);
         String sql = "insert into tbl_users(email,password) values(?,?)";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, user.getEmail());
-        stmt.setString(2, user.getPassword());
-        stmt.executeUpdate();
+        template.update(sql, new Object[]{
+            user.getEmail(), user.getPassword()
+        });
     }
 
     @Override
     public void update(User user) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost/kaamPay";
-        String username = "root";
-        String password = "";
-        Connection conn = DriverManager.getConnection(url, username, password);
         String sql = "update table tbl_users set email=?,password=?"
                 + ",modified_date=CURRENT_TIMESTAMP,status=? where id=?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, user.getEmail());
-        stmt.setString(2, user.getPassword());
-        stmt.setBoolean(3, user.isStatus());
-        stmt.setInt(4, user.getId());
-        stmt.executeUpdate();
+        template.update(sql, new Object[]{
+            user.getEmail(), user.getPassword(), user.isStatus(),
+             user.getId()
+        });
     }
 
     @Override
