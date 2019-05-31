@@ -4,3 +4,5 @@ New Project->Maven->Web Application
 Set up database
 
 Use executeQuery for insert/update
+
+unique prevents duplicate entry
