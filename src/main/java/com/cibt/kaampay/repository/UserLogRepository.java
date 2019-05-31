@@ -5,12 +5,12 @@
  */
 package com.cibt.kaampay.repository;
 
-import com.cibt.kaampay.entity.User;
-import java.util.List;
+import com.cibt.kaampay.entity.UserLog;
 
 /**
  *
  * @author HP B&O
  */
-public interface UserRepositoy extends CRUDRepository<User>{
+public interface UserLogRepository extends CRUDRepository<UserLog>{
+    
 }

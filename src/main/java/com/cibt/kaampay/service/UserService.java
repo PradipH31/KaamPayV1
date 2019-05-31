@@ -6,17 +6,10 @@
 package com.cibt.kaampay.service;
 
 import com.cibt.kaampay.entity.User;
-import java.util.List;
 
 /**
  *
  * @author HP B&O
  */
-public interface UserService {
-
-    void save(User user) throws Exception;
-
-    List<User> findAll() throws Exception;
-
-    User findById(int id) throws Exception;
+public interface UserService  extends GenericService<User>{
 }

@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cibt.kaampay.repository;
+package com.cibt.kaampay.service;
 
-import com.cibt.kaampay.entity.User;
+import com.cibt.kaampay.entity.UserLog;
 import java.util.List;
 
 /**
  *
  * @author HP B&O
  */
-public interface UserRepositoy extends CRUDRepository<User>{
+public interface UserLogService extends GenericService<UserLog> {
+    List<UserLog> findByUserId(int id) throws Exception;
 }
