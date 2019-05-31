@@ -17,9 +17,10 @@ public class App {
 
     public static void main(String[] args) {
         try {
-            User user=new User(1, "aksd@gmail.com", "jfsgkj", false);
-            UserService userService =new UserServiceImpl();
-            userService.save(user);
+            UserService userService=new UserServiceImpl();
+            for(User u:userService.findAll()){
+                System.out.println(u.getEmail());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -11,9 +11,8 @@ import java.util.Date;
  *
  * @author HP B&O
  */
-public class User {
+public class User extends MasterEntity{
 
-    private int id;
     private String email, password;
     private Date createdDate, modifiedDate;
     private boolean status;
@@ -30,14 +29,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.status = status;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -63,5 +54,23 @@ public class User {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+    
+    
 
 }

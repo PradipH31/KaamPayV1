@@ -6,6 +6,7 @@
 package com.cibt.kaampay.repository;
 
 import com.cibt.kaampay.entity.User;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,8 @@ public interface UserRepositoy {
     void insert(User user) throws Exception;
 
     void update(User user) throws Exception;
+
+    List<User> findAll() throws Exception;
+
+    User findById(int id) throws Exception;
 }

@@ -9,6 +9,7 @@ import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.repository.UserRepositoy;
 import com.cibt.kaampay.repository.impl.UserRepositoryImpl;
 import com.cibt.kaampay.service.UserService;
+import java.util.List;
 
 /**
  *
@@ -25,6 +26,16 @@ public class UserServiceImpl implements UserService {
         }else{
             userRepositoy.update(user);
         }
+    }
+
+    @Override
+    public List<User> findAll() throws Exception {
+        return userRepositoy.findAll();
+    }
+
+    @Override
+    public User findById(int id) throws Exception {
+        return userRepositoy.findById(id);
     }
 
 }
