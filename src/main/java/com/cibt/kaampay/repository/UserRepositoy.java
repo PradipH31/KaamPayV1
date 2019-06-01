@@ -6,7 +6,6 @@
 package com.cibt.kaampay.repository;
 
 import com.cibt.kaampay.entity.User;
-import java.util.List;
 
 /**
  *
@@ -15,4 +14,9 @@ import java.util.List;
 public interface UserRepositoy extends CRUDRepository<User> {
 
     User login(String email, String password) throws Exception;
+
+    User findByEmail(String email) throws Exception;
+
+    boolean changeStatus(int id, boolean status) throws Exception;
+
 }

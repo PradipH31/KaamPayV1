@@ -115,4 +115,14 @@ public class UserRepositoryImpl implements UserRepositoy {
         return user;
     }
 
+    @Override
+    public User findByEmail(String email) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean changeStatus(int id, boolean status) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

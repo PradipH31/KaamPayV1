@@ -18,33 +18,47 @@ import java.util.List;
  */
 public class JDBCTemplate<T> {
 
-    public int update(String sql, Object[] params) throws Exception {
+    private Connection getConnection() throws Exception {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://localhost/kaamPay";
         String username = "root";
         String password = "";
-        Connection conn = DriverManager.getConnection(url, username, password);
-        PreparedStatement stmt = conn.prepareStatement(sql);
+        return DriverManager.getConnection(url, username, password);
+    }
+
+    public int update(String sql, Object[] params) throws Exception {
+
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        addParameters(stmt, params);
+        return stmt.executeUpdate();
+    }
+
+    private void addParameters(PreparedStatement stmt, Object[] params) throws Exception {
         int counter = 1;
         for (Object param : params) {
             stmt.setObject(counter, param);
             counter++;
         }
-        return stmt.executeUpdate();
     }
 
     public List<T> query(String sql, RowMapper<T> mapper) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost/kaamPay";
-        String username = "root";
-        String password = "";
-        Connection conn = DriverManager.getConnection(url, username, password);
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        List<T> rows =new ArrayList<>();
-        ResultSet rs=stmt.executeQuery();
-        while(rs.next()){
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        List<T> rows = new ArrayList<>();
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
             rows.add(mapper.mapRow(rs));
         }
         return rows;
+    }
+
+    public T queryForObject(String sql, Object[] params, RowMapper<T> mapper) throws Exception {
+        T row = null;
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        addParameters(stmt, params);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            row = mapper.mapRow(rs);
+        }
+        return row;
     }
 }
