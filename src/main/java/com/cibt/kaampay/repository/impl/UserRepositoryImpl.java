@@ -45,16 +45,7 @@ public class UserRepositoryImpl implements UserRepositoy {
         return template.query(sql, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs) throws Exception {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setStatus(rs.getBoolean("status"));
-                user.setCreatedDate(new Date(rs.getDate("created_date").getTime()));
-                if (rs.getDate("modified_date") != null) {
-                    user.setModifiedDate(new Date(rs.getDate("modified_date").getTime()));
-                }
-                return user;
+                return mapUser(rs);
             }
         });
     }
@@ -65,18 +56,22 @@ public class UserRepositoryImpl implements UserRepositoy {
         return template.queryForObject(sql, new Object[]{id}, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs) throws Exception {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setStatus(rs.getBoolean("status"));
-                user.setCreatedDate(new Date(rs.getDate("created_date").getTime()));
-                if (rs.getDate("modified_date") != null) {
-                    user.setModifiedDate(new Date(rs.getDate("modified_date").getTime()));
-                }
-                return user;
+                return mapUser(rs);
             }
         });
+    }
+
+    private User mapUser(ResultSet rs) throws Exception {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setStatus(rs.getBoolean("status"));
+        user.setCreatedDate(new Date(rs.getDate("created_date").getTime()));
+        if (rs.getDate("modified_date") != null) {
+            user.setModifiedDate(new Date(rs.getDate("modified_date").getTime()));
+        }
+        return user;
     }
 
     @Override
@@ -87,28 +82,30 @@ public class UserRepositoryImpl implements UserRepositoy {
         }, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs) throws Exception {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setStatus(rs.getBoolean("status"));
-                user.setCreatedDate(new Date(rs.getDate("created_date").getTime()));
-                if (rs.getDate("modified_date") != null) {
-                    user.setModifiedDate(new Date(rs.getDate("modified_date").getTime()));
-                }
-                return user;
+                return mapUser(rs);
             }
         });
     }
 
     @Override
     public User findByEmail(String email) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "select * from tbl_users where email=?";
+        return template.queryForObject(sql, new Object[]{email}, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet rs) throws Exception {
+                return mapUser(rs);
+            }
+        });
     }
 
     @Override
     public boolean changeStatus(int id, boolean status) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "update table tbl_users set modified_date=CURRENT_TIMESTAMP"
+                + ",status=? where id=?";
+        int result = template.update(sql, new Object[]{
+            status, id
+        });
+        return result > 0;
     }
 
 }
