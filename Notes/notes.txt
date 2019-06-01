@@ -11,6 +11,8 @@ Web Pages (Right click)New Others->Web->Standard Deploymenr Descriptor
 Add doGet and doPost functions in servlet
 
 HttpSession session=request.getSession(true);
+request.getSession().setAttribute(key,value);
+request.getSession().invalidate();
 This statement creates a session if none exist.
 
 In authfilter, request must be implicitly cast into httpservletrequest(& response) because there is no getSession method in normal request

@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             String page = "";
             if (user != null) {
                 HttpSession session=request.getSession(true);
-                session.setAttribute("user", user);
+                session.setAttribute("loggedin", user);
                 page = "/admin";
             } else {
                 page = "/login?error";

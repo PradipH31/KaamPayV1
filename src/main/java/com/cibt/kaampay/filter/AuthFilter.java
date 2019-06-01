@@ -9,6 +9,7 @@ import com.cibt.kaampay.entity.User;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -21,7 +22,11 @@ import javax.servlet.http.HttpSession;
  * @author HP B&O
  */
 public class AuthFilter implements Filter {
-    
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain fc) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -32,9 +37,16 @@ public class AuthFilter implements Filter {
             if (user != null && user.isStatus()) {
                 fc.doFilter(request, response);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/login");
+                resp.sendRedirect(req.getContextPath() + "/login?inactive");
             }
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/login?error");
         }
     }
-    
+
+    @Override
+    public void destroy() {
+        Filter.super.destroy(); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
