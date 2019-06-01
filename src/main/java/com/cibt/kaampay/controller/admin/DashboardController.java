@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cibt.kaampay.servlet.admin;
+package com.cibt.kaampay.controller.admin;
 
+import com.cibt.kaampay.core.Controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,13 +16,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP B&O
  */
-@WebServlet(urlPatterns = "/admin/logout/*")
-public class LogoutServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/admin/*")
+public class DashboardController extends Controller {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath() + "/login");
+        request.setAttribute("name", "ABC  BLKAjadjfh");
+        request.getRequestDispatcher("/WEB-INF/views/admin/index.jsp")
+                .forward(request, response);
     }
     
 }

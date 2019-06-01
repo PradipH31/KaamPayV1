@@ -5,24 +5,11 @@
  */
 package com.cibt.kaampay.core;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
 
 /**
  *
  * @author HP B&O
  */
-public abstract class Controller {
-
-    protected HttpServletRequest request;
-    protected HttpServletResponse response;
-
-    public void setRequest(HttpServletRequest request) {
-        this.request = request;
-    }
-
-    public void setResponse(HttpServletResponse response) {
-        this.response = response;
-    }
-
+public abstract class Controller extends HttpServlet{
 }

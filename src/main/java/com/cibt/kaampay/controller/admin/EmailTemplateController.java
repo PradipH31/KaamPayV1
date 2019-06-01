@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cibt.kaampay.servlet.admin;
+package com.cibt.kaampay.controller.admin;
 
+import com.cibt.kaampay.core.Controller;
 import com.cibt.kaampay.entity.EmailTemplate;
 import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.service.EmailTemplateService;
@@ -12,7 +13,6 @@ import com.cibt.kaampay.service.impl.EmailTemplateServiceImpl;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author HP B&O
  */
 @WebServlet(urlPatterns = "/admin/emailtemplates/*")
-public class EmailTemplateServlet extends HttpServlet {
+public class EmailTemplateController extends Controller {
 
     private EmailTemplateService emailTemplateService = new EmailTemplateServiceImpl();
 
@@ -32,7 +32,7 @@ public class EmailTemplateServlet extends HttpServlet {
         try {
             if (request.getRequestURI().contains("/add")) {
                 page = "add";
-            } else if (request.getRequestURI().contains("/add")) {
+            } else if (request.getRequestURI().contains("/edit")) {
                 String[] tokens = request.getRequestURI().split("/");
                 try {
                     int id = Integer.parseInt(tokens[tokens.length - 1]);
