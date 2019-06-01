@@ -4,3 +4,6 @@ New Project->Maven->Web Application
 Set up database
 
 For web projects, dependencies javax.servlet-api & javax.servlet.jsp-api
+
+To configure servlet,
+Web Pages (Right click)New Others->Web->Standard Deploymenr Descriptor
