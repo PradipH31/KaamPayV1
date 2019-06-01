@@ -8,6 +8,9 @@ package com.cibt.kaampay.core;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,5 +31,20 @@ public class JDBCTemplate<T> {
             counter++;
         }
         return stmt.executeUpdate();
+    }
+
+    public List<T> query(String sql, RowMapper<T> mapper) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost/kaamPay";
+        String username = "root";
+        String password = "";
+        Connection conn = DriverManager.getConnection(url, username, password);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<T> rows =new ArrayList<>();
+        ResultSet rs=stmt.executeQuery();
+        while(rs.next()){
+            rows.add(mapper.mapRow(rs));
+        }
+        return rows;
     }
 }
