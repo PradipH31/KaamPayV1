@@ -5,6 +5,7 @@
  */
 package com.cibt.kaampay.service.impl;
 
+import com.cibt.kaampay.configuration.AppConfiguration;
 import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.entity.UserLog;
 import com.cibt.kaampay.helper.MailHelper;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private UserRepositoy userRepositoy = new UserRepositoryImpl();
     private UserLogRepository userLogRepository = new UserLogRepositoryImpl();
-    private MailHelper mailer = new MailHelper();
+    private MailHelper mailer = AppConfiguration.getMailHelper();
 
     @Override
     public void save(User user) throws Exception {
@@ -56,15 +57,10 @@ public class UserServiceImpl implements UserService {
 
     private void sendRegisterEmail(String email) {
         String url = "http://localhost:8080/kaampayv1/verifyemail?email=" + email;
-        String host = "smtp.wlink.com.np";
-        String port = "25";
-        String from = "enquire@creators.institute";
-        String to = email;
         String subject = "CIBT:You have successfully registered email";
         String body = "Dear sir/madam<br>Please verify your email address:"
                 + "<a href=\"" + url + "\"Verify";
-        mailer.setHost(host).setBody(body).setFrom(from).setPort(port)
-                .setSubject(subject).setTo(to).send();
+        mailer.setBody(body).setSubject(subject).setTo(email).send();
     }
 
     @Override
@@ -72,6 +68,9 @@ public class UserServiceImpl implements UserService {
         User user = userRepositoy.findByEmail(email);
         if (user != null) {
             userRepositoy.changeStatus(user.getId(), true);
+            String subject = "CIBT:You have verified your email";
+            String body = "Dear sir/madam<br>Thank you for verifying";
+            mailer.setBody(body).setSubject(subject).setTo(email).send();
             return true;
         }
         return false;
