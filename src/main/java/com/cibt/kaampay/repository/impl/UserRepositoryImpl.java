@@ -13,7 +13,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +26,9 @@ public class UserRepositoryImpl implements UserRepositoy {
     
     @Override
     public void insert(User user) throws Exception {
-        String sql = "insert into tbl_users(email,password) values(?,?)";
+        String sql = "insert into tbl_users(email,password,status) values(?,?,?)";
         template.update(sql, new Object[]{
-            user.getEmail(), user.getPassword()
+            user.getEmail(), user.getPassword(),user.isStatus()
         });
     }
     
@@ -115,5 +114,5 @@ public class UserRepositoryImpl implements UserRepositoy {
         }
         return user;
     }
-    
+
 }
