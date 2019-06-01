@@ -6,8 +6,8 @@
 package com.cibt.kaampay;
 
 import com.cibt.kaampay.entity.User;
-import com.cibt.kaampay.service.UserService;
-import com.cibt.kaampay.service.impl.UserServiceImpl;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 
 /**
  *
@@ -16,14 +16,19 @@ import com.cibt.kaampay.service.impl.UserServiceImpl;
 public class App {
 
     public static void main(String[] args) {
-        try {
-            UserService userService=new UserServiceImpl();
-            userService.login("abc@gmail.com", "589273598");
-            for(User u:userService.findAll()){
-                System.out.println(u.getEmail());
+        //getFields() for public fields,getDeclaredFields()
+        Field[] fields = User.class.getDeclaredFields();
+        for (Field f : fields) {
+            System.out.println(f.getName());
+            System.out.println(f.getType().getName());
+        }
+        Constructor<?>[] constructor = User.class.getConstructors();
+        for (int i = 0; i < constructor.length; i++) {
+            System.out.println(constructor[i].getName());
+            Class<?>[] types = constructor[i].getParameterTypes();
+            for (int j = 0; j < types.length; j++) {
+                System.out.println(types[j].getName());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 }
