@@ -12,5 +12,7 @@ import java.util.List;
  *
  * @author HP B&O
  */
-public interface UserRepositoy extends CRUDRepository<User>{
+public interface UserRepositoy extends CRUDRepository<User> {
+
+    User login(String email, String password) throws Exception;
 }

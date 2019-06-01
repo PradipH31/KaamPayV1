@@ -5,6 +5,7 @@
  */
 package com.cibt.kaampay.repository.impl;
 
+import com.cibt.kaampay.core.JDBCTemplate;
 import com.cibt.kaampay.entity.UserLog;
 import com.cibt.kaampay.repository.UserLogRepository;
 import java.util.List;
@@ -15,9 +16,12 @@ import java.util.List;
  */
 public class UserLogRepositoryImpl implements UserLogRepository{
 
+    private JDBCTemplate<UserLog> template=new JDBCTemplate<>();
+    
     @Override
     public void insert(UserLog model) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql="insert into tbl_user_logs(user_id) values(?)";
+        template.update(sql, new Object[]{model.getUser().getId()});
     }
 
     @Override

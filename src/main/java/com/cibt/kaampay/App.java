@@ -18,9 +18,7 @@ public class App {
     public static void main(String[] args) {
         try {
             UserService userService=new UserServiceImpl();
-            for(User u:userService.findAll()){
-                System.out.println(u.getEmail());
-            }
+            userService.login("abc@gmail.com", "589273598");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

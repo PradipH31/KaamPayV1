@@ -11,5 +11,7 @@ import com.cibt.kaampay.entity.User;
  *
  * @author HP B&O
  */
-public interface UserService  extends GenericService<User>{
+public interface UserService extends GenericService<User> {
+
+    User login(String email, String password) throws Exception;
 }

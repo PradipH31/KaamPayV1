@@ -6,7 +6,10 @@
 package com.cibt.kaampay.service.impl;
 
 import com.cibt.kaampay.entity.User;
+import com.cibt.kaampay.entity.UserLog;
+import com.cibt.kaampay.repository.UserLogRepository;
 import com.cibt.kaampay.repository.UserRepositoy;
+import com.cibt.kaampay.repository.impl.UserLogRepositoryImpl;
 import com.cibt.kaampay.repository.impl.UserRepositoryImpl;
 import com.cibt.kaampay.service.UserService;
 import java.util.List;
@@ -18,12 +21,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserRepositoy userRepositoy = new UserRepositoryImpl();
-    
+    private UserLogRepository userLogRepository = new UserLogRepositoryImpl();
+
     @Override
     public void save(User user) throws Exception {
-        if(user.getId()==0){
+        if (user.getId() == 0) {
             userRepositoy.insert(user);
-        }else{
+        } else {
             userRepositoy.update(user);
         }
     }
@@ -36,6 +40,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(int id) throws Exception {
         return userRepositoy.findById(id);
+    }
+
+    @Override
+    public User login(String email, String password) throws Exception {
+        User user = userRepositoy.login(email, password);
+        if (user != null) {
+            userLogRepository.insert(new UserLog(0, user));
+        }
+        return user;
     }
 
 }

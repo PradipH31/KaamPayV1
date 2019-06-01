@@ -6,6 +6,7 @@
 package com.cibt.kaampay.service.impl;
 
 import com.cibt.kaampay.entity.UserLog;
+import com.cibt.kaampay.repository.UserLogRepository;
 import com.cibt.kaampay.service.UserLogService;
 import java.util.List;
 

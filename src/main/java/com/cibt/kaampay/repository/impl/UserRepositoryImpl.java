@@ -38,7 +38,7 @@ public class UserRepositoryImpl implements UserRepositoy {
                 + ",modified_date=CURRENT_TIMESTAMP,status=? where id=?";
         template.update(sql, new Object[]{
             user.getEmail(), user.getPassword(), user.isStatus(),
-             user.getId()
+            user.getId()
         });
     }
 
@@ -79,6 +79,33 @@ public class UserRepositoryImpl implements UserRepositoy {
         String sql = "select * from tbl_users where id=?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, id);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()) {
+            user = new User();
+            user.setId(result.getInt("id"));
+            user.setEmail(result.getString("email"));
+            user.setPassword(result.getString("password"));
+            user.setStatus(result.getBoolean("status"));
+            user.setCreatedDate(new Date(result.getDate("created_date").getTime()));
+            if (result.getDate("modified_date") != null) {
+                user.setModifiedDate(new Date(result.getDate("modified_date").getTime()));
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public User login(String email, String password) throws Exception {
+        User user = null;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost/kaamPay";
+        String username = "root";
+        String pwd = "";
+        Connection conn = DriverManager.getConnection(url, username, pwd);
+        String sql = "select * from tbl_users where email=? and password=?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, email);
+        stmt.setString(2, password);
         ResultSet result = stmt.executeQuery();
         while (result.next()) {
             user = new User();
