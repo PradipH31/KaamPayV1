@@ -5,7 +5,6 @@
  */
 package com.cibt.kaampay.servlet;
 
-import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.service.UserService;
 import com.cibt.kaampay.service.impl.UserServiceImpl;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,12 +20,23 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(urlPatterns = "/verifyemail/*")
 public class VerifyEmailServlet extends HttpServlet {
-
+    
+    UserService userService = new UserServiceImpl();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String page = "";
+            if (userService.verify(request.getParameter("email"))) {
+                page = "/login";
+            } else {
+                page = "/login?error";
+            }
+            response.sendRedirect(request.getContextPath() + page);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         
-        request.getRequestDispatcher("/WEB-INF/views/login.jsp")
-                .forward(request, response);
     }
-
+    
 }
