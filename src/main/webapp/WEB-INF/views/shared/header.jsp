@@ -14,6 +14,6 @@
     <body>
         <h1>Welcome World!</h1>
         <ul>
-            <li><a href="register.jsp">Sign Up</a></li>
-            <li><a href="login.jsp">Login</a></li>
+            <li><a href="${pageContext.request.getContextPath()}/register">Sign Up</a></li>
+            <li><a href="${pageContext.request.getContextPath()}/login">Login</a></li>
         </ul>
