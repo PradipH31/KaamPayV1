@@ -37,8 +37,15 @@ public class ProjectController extends Controller {
                 String[] tokens = request.getRequestURI().split("/");
                 try {
                     int id = Integer.parseInt(tokens[tokens.length - 1]);
-                    request.setAttribute("project", projectService.findById(id));
-                    page = "edit";
+                    Project project = projectService.findById(id);
+                    User user = (User) request.getSession().getAttribute("loggedin");
+                    if (project.getCreatedBy().getId() == user.getId()) {
+                        request.setAttribute("project", project);
+                        page = "edit";
+                    }else{
+                        isRedirect=true;
+                        response.sendRedirect(request.getContextPath() + "/admin/projects?error");
+                    }
                 } catch (NumberFormatException e) {
                     isRedirect = true;
                     response.sendRedirect(request.getContextPath() + "/admin/projects");
