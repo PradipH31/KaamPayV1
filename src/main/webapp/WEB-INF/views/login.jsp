@@ -1,17 +1,3 @@
-<%@page import="com.cibt.kaampay.entity.User"%>
-<%@page import="com.cibt.kaampay.service.impl.UserServiceImpl"%>
-<%@page import="com.cibt.kaampay.service.UserService"%>
-<%
-    if (request.getMethod().equalsIgnoreCase("post")) {
-        UserService userService = new UserServiceImpl();
-        User user = userService.login(request.getParameter("email"),
-                request.getParameter("password"));
-        if (user != null) {
-            response.sendRedirect(request.getContextPath() + "/admin.jsp");
-        } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp?error");
-        }
-%>
 <%@include file="shared/header.jsp" %>
 <h1>Login</h1>
 <form action="" method="post">

@@ -7,3 +7,5 @@ For web projects, dependencies javax.servlet-api & javax.servlet.jsp-api
 
 To configure servlet,
 Web Pages (Right click)New Others->Web->Standard Deploymenr Descriptor
+
+Add doGet and doPost functions in servlet

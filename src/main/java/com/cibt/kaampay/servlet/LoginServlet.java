@@ -5,6 +5,9 @@
  */
 package com.cibt.kaampay.servlet;
 
+import com.cibt.kaampay.entity.User;
+import com.cibt.kaampay.service.UserService;
+import com.cibt.kaampay.service.impl.UserServiceImpl;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +28,20 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService userService = new UserServiceImpl();
+        try {
+            User user = userService.login(request.getParameter("email"),
+                    request.getParameter("password"));
+            String page = "";
+            if (user != null) {
+                page = "/admin";
+            } else {
+                page = "/login?error";
+            }
+            response.sendRedirect(request.getContextPath() + page);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 }
