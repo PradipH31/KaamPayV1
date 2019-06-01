@@ -12,3 +12,6 @@ Add doGet and doPost functions in servlet
 
 HttpSession session=request.getSession(true);
 This statement creates a session if none exist.
+
+In authfilter, request must be implicitly cast into httpservletrequest(& response) because there is no getSession method in normal request
+FilterChain.doFilter() redirects the request to the response
