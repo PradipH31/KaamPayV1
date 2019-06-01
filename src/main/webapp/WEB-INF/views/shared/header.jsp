@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="SITE_URL" value="${pageContext.request.getContextPath()}"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +16,6 @@
     <body>
         <h1>Welcome World!</h1>
         <ul>
-            <li><a href="${pageContext.request.getContextPath()}/register">Sign Up</a></li>
-            <li><a href="${pageContext.request.getContextPath()}/login">Login</a></li>
+            <li><a href="${SITE_URL}/register">Sign Up</a></li>
+            <li><a href="${SITE_URL}/login">Login</a></li>
         </ul>
