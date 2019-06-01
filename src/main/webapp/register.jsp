@@ -1,17 +1,14 @@
-<%-- 
-    Document   : register
-    Created on : Jun 1, 2019, 8:43:41 AM
-    Author     : HP B&O
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@include file="shared/header.jsp" %>
+<h1>Register</h1>
+<form action="" method="post">
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required="required">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="password" required="required">
+    </div>
+    <button type="submit">Register</button>
+</form>
+<%@include file="shared/footer.jsp" %>
