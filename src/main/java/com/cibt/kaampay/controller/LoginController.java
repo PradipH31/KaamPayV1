@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cibt.kaampay.servlet;
+package com.cibt.kaampay.controller;
 
+import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.service.UserService;
 import com.cibt.kaampay.service.impl.UserServiceImpl;
 import java.io.IOException;
@@ -13,22 +14,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author HP B&O
  */
-@WebServlet(urlPatterns = "/verifyemail/*")
-public class VerifyEmailServlet extends HttpServlet {
-    
-    UserService userService = new UserServiceImpl();
-    
+@WebServlet(urlPatterns = "/login/*")
+public class LoginController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/views/login.jsp")
+                .forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService userService = new UserServiceImpl();
         try {
+            User user = userService.login(request.getParameter("email"),
+                    request.getParameter("password"));
             String page = "";
-            if (userService.verify(request.getParameter("email"))) {
-                page = "/login";
+            if (user != null) {
+                HttpSession session=request.getSession(true);
+                session.setAttribute("loggedin", user);
+                page = "/admin";
             } else {
                 page = "/login?error";
             }
@@ -36,7 +47,6 @@ public class VerifyEmailServlet extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        
     }
-    
+
 }

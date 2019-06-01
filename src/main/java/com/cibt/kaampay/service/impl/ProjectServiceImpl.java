@@ -7,7 +7,6 @@ package com.cibt.kaampay.service.impl;
 
 import com.cibt.kaampay.entity.Project;
 import com.cibt.kaampay.repository.ProjectRepository;
-import com.cibt.kaampay.repository.impl.ProjectRepositoryImpl;
 import com.cibt.kaampay.service.ProjectService;
 import java.util.List;
 

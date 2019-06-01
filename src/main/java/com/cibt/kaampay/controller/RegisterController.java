@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cibt.kaampay.servlet;
+package com.cibt.kaampay.controller;
 
 import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.service.UserService;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author HP B&O
  */
 @WebServlet(urlPatterns = "/register/*")
-public class RegisterServlet extends HttpServlet {
+public class RegisterController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

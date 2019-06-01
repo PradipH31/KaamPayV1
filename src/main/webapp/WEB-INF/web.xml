@@ -17,4 +17,12 @@
         <filter-name>authFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>com.cibt.kaampay.core.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>
