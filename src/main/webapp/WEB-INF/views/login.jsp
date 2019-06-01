@@ -10,6 +10,6 @@
         <input type="password" name="password" required="required">
     </div>
     <button type="submit">Login</button>
-    <a href="register.jsp">Register</a>
+    <a href="${SITE_URL}/register">Register</a>
 </form>
 <%@include file="shared/footer.jsp" %>

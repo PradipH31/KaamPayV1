@@ -5,7 +5,12 @@
  */
 package com.cibt.kaampay.servlet;
 
+import com.cibt.kaampay.entity.User;
+import com.cibt.kaampay.service.UserService;
+import com.cibt.kaampay.service.impl.UserServiceImpl;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +32,18 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getMethod().equalsIgnoreCase("post")) {
+            UserService userService = new UserServiceImpl();
+            User user = new User();
+            user.setEmail(request.getParameter("email"));
+            user.setPassword(request.getParameter("password"));
+            try {
+                userService.save(user);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
     }
 
 }
