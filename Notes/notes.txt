@@ -3,6 +3,4 @@ New Project->Maven->Web Application
 
 Set up database
 
-Use executeQuery for insert/update
-
-unique prevents duplicate entry
+For web projects, dependencies javax.servlet-api & javax.servlet.jsp-api
